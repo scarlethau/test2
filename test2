@@ -1,0 +1,47 @@
+import pandas as pd
+import requests
+import json
+
+i = 0 
+data = []
+for i in range(5) :
+    
+    url = "https://api.schiphol.nl/public-flights/flights?includedelays=false&page=" + str(i) + "&sort=%2BscheduleTime&fromDateTime=2020-12-01T00%3A00%3A00&toDateTime=2020-12-03T00%3A00%3A00&searchDateTimeField=estimatedLandingTime"
+    i = i + 1
+     
+    r = requests.get(url)
+    headers = headers = {
+      'accept': 'application/json',
+	  'resourceversion': 'v4',
+      'app_id': '6ec7ae49',
+	  'app_key': '0b7a8784dc9b7bd1e7b12d927ff3fab9'}
+    response = requests.request('GET', url, headers=headers)
+    datatxt = response.text
+    dataspl = json.loads(datatxt)
+    data = response.json()
+    
+    df = pd.DataFrame.from_dict(data['flights'], orient='columns')
+    
+    df.head()
+    
+    df['aircraftType']
+    
+    part1 = pd.DataFrame(dataspl)
+    
+    part1.head()
+    
+    import seaborn as sns
+import matplotlib.pyplot as plt
+!pip install plotly==5.3.1
+import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+#Dataset afkomstig van Datacamp
+penguins = pd.read_csv('penguins.csv')
+
+penguins.head()
+
+penguins.info()
+
+penguins.nunique()
